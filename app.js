@@ -12,6 +12,7 @@ app.engine('handlebars', express_hbs.engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+app.use(express.static('public'))
 
 //非production環境使用doten
 if (process.env.NODE_ENV !== 'production') {
