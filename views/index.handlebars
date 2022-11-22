@@ -1,5 +1,5 @@
 <div class="container col-8 text-center">
-  <form action="/" method="POST" class="needs-validation" novalidate>
+  <form action="/" method="POST" class="insertBar" novalidate>
     <div>
       <label for="originURL" class="form-label"></label>
       <input type="url" class="form-control" id="originURL" name="originURL" placeholder="Please input origin URL here"
@@ -9,7 +9,27 @@
       </div>
     </div>
     <div>
-      <button type="submit" class="btn btn-outline-light btn-lg mt-5 mb-5">shorten</button>
+      <button type="submit" class="btn btn-outline-light btn-lg mt-5 mb-5 px-5">shorten</button>
     </div>
   </form>
 </div>
+
+<!--透過checkValidity->是否具有驗證條件->是否通過->回覆boolean-->
+<script>
+  (function () {
+    'use strict'
+    const forms = document.querySelectorAll('.insertBar')
+
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>

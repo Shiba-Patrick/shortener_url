@@ -54,6 +54,7 @@ app.post('/', (req, res) => {
           .then(() => {
             res.render('shortUrl', { shortURL }) //render進去shortUrl頁面
           })
+          
           .catch(error => console.log())
       } else {
         const shortURL = `${localhost}/${url.shortURL}` //localhost+已建立的亂數5碼
@@ -63,7 +64,7 @@ app.post('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//產生短網址後的路由
+//產生短網址後導向該網站的路由設定
 app.get('/:shortURL', (req, res) => {
   const shortURL = req.params.shortURL
   URL.findOne({ shortURL })
