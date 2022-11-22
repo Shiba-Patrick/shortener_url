@@ -1,20 +1,22 @@
+//loading 需要的套件以及mongoose&亂數產生function
 const express = require('express')
 const express_hbs = require('express-handlebars')
 const bodyParser = require('body-parser')
-const methodOverride = require('method-override')
+const URL = require('./models/url')
+const generateShortURL = require('./generateShortURL')
+
 const mongoose = require('mongoose')
 
 const PORT = 3000
+const localhost = 'http://localhost:3000'
 const app = express()
 
-//setting handlebars/bodyParser/method-override
+//setting handlebars/bodyParser
 app.engine('handlebars', express_hbs.engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(methodOverride('_method'))
-app.use(express.static('public'))
 
-//非production環境使用doten
+//非production環境使用dotenv
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -35,6 +37,42 @@ db.once('open', () => {
 //homepage
 app.get('/', (req, res) => {
   res.render('index')
+})
+
+//submit url get short url
+app.post('/', (req, res) => {
+  const originURL = req.body.originURL
+
+  URL.findOne({ originURL }) //確認資料庫已有無此筆資料
+    .lean()
+    .then(url => {  //若已有此資料則回傳相對應的短網誌,反之則產生新的短網誌
+      if (!url) {
+        const getURL = generateShortURL() //產生亂數5碼
+        const shortURL = `${localhost}/${getURL}` //localhost+亂數5碼
+
+        URL.create({ originURL, shortURL: getURL }) //create 一筆新的資料
+          .then(() => {
+            res.render('shortUrl', { shortURL }) //render進去shortUrl頁面
+          })
+          .catch(error => console.log())
+      } else {
+        const shortURL = `${localhost}/${url.shortURL}` //localhost+已建立的亂數5碼
+        res.render('shortUrl', { shortURL })
+      }
+    })
+    .catch(error => console.log(error))
+})
+
+//產生短網址後的路由
+app.get('/:shortURL', (req, res) => {
+  const shortURL = req.params.shortURL
+  URL.findOne({ shortURL })
+    .lean()
+    .then(url => {
+      res.redirect(url.originURL)
+    })
+    .catch(error => console.log(error))
+
 })
 
 //app.listen

@@ -6,28 +6,23 @@ require('dotenv').config() //載入dotenv環境變數做使用
 const seed = [
   {
     originURL: 'https://www.instagram.com/',
-    shortURL: `http://localhost:${PORT}/URL1`,
-    shortWords: 'URL1',
+    shortURL: 'acd13',
   },
   {
     originURL: 'https://www.google.com/',
-    shortURL: `http://localhost:${PORT}/URL2`,
-    shortWords: 'URL2',
+    shortURL: 'VvG61',
   },
   {
     originURL: 'https://www.facebook.com/',
-    shortURL: `http://localhost:${PORT}/URL3`,
-    shortWords: 'URL3',
+    shortURL: 'h761G',
   },
   {
     originURL: 'https://www.amazon.com/',
-    shortURL: `http://localhost:${PORT}/URL4`,
-    shortWords: 'URL4',
+    shortURL: '33n8E',
   },
   {
     originURL: 'https://www.shopee.tw/',
-    shortURL: `http://localhost:${PORT}/URL5`,
-    shortWords: 'URL5',
+    shortURL: 'Sdtl3'
   }
 ]
 
@@ -41,7 +36,7 @@ db.on('error', () => {
 
 db.once('open', () => {
   console.log('MongoDB connect!!!')
-  URL.create(seed)
+  URL.insertMany(seed)
   console.log('seed insert done!!!')
 })
 

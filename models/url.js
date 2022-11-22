@@ -8,9 +8,6 @@ const urlSchema = new Schema({
   shortURL:{
     type: String,
     required: true
-  },
-  shortWords:{
-    type: String
   }
 })
 

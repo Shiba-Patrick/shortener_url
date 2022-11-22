@@ -8,10 +8,10 @@ const word = upperLetter.concat(lowerLetter).concat(number).split('')
 
 //generate shortener URL  function
 //for loop做5次亂數產生字元並加在網址後方
-function generateShortURL(){
+function generateShortURL() {
   let shortURL = ''
-  for(let i = 1 ; i <=5;i++){
-    const index = Math.floor(Match.random() * word.length)
+  for (let i = 1; i <= 5; i++) {
+    const index = Math.floor(Math.random() * word.length)
     shortURL += word[index]
   }
   return shortURL
