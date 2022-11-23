@@ -9,7 +9,7 @@
 ## Start!!
 1. 開啟終端機並clone本地專案
   ```
-  git clone https://github.com/daniel155158/shorten_url.git
+  git clone https://github.com/Shiba-Patrick/shortener_url.git
   ```
 3. 進入存放資料夾
   ```
