@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const db = require('../../config/mongoose')
 const URL = require("../url")
 const PORT = 3000
 require('dotenv').config() //載入dotenv環境變數做使用
@@ -26,16 +26,7 @@ const seed = [
   }
 ]
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('MongoDB error')
-})
-
 db.once('open', () => {
-  console.log('MongoDB connect!!!')
   URL.insertMany(seed)
   console.log('seed insert done!!!')
 })
