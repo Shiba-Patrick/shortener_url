@@ -1,6 +1,6 @@
 const db = require('../../config/mongoose')
 const URL = require("../url")
-const PORT = 3000
+
 require('dotenv').config() //載入dotenv環境變數做使用
 
 const seed = [
