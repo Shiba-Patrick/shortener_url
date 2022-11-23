@@ -19,5 +19,5 @@ app.use(routes)
 
 //app.listen
 app.listen(PORT, () => {
-  console.log(`App is listen on localhost:${PORT}`)
+  console.log(`App is listen on http://localhost:${PORT}`)
 })
